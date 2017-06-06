@@ -15,7 +15,7 @@ class Command
 		Command();
 		Command(CommandType type);
 		int getParameter();
-		void setPatameter(InChar);
+		void setParameter(string InChar);
 };
 
 #endif
