@@ -1,6 +1,8 @@
 #ifndef command
 #define command
 
+#include <string>
+
 enum CommandType {Push, Duplicate, Swap, Pop, Add, Subtract, Multiply, Divide, Mod,
 	Store, Retrieve, Mark, Call, Jump, JumpZero, JumpNegative, EndSub, End,
 	OutChar, OutInt, InChar, InInt};
@@ -12,10 +14,10 @@ class Command
 		CommandType type;
 		int parameter;
 	public:
-		Command();
 		Command(CommandType type);
 		int getParameter();
-		void setParameter(string InChar);
+		void setParameter(std::string inChar);
+		CommandType getType();
 };
 
 #endif
