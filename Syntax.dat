@@ -1,0 +1,42 @@
+<  > Push 1
+< 
+ > Duplicate 0
+< 
+	> Swap 0
+< 
+
+> Pop 0
+<	   > Add 0
+<	  	> Subtract 0
+<	  
+> Multiply 0
+<	 	 > Divide 0
+<	 		> Mod 0
+<		 > Store 0
+<		 > Retrieve 0
+<
+  > Mark 1
+<
+ 	> Call 1
+<
+ 
+ > Jump 1
+<
+	 > JumpZero 1
+<
+		> JumpNegative 1
+<
+	
+	> End Sub 0
+<
+
+
+> End 0
+<	
+  > OutChar 0
+<	
+ 	> OutInt 0
+<	
+	 > InChar 0
+<	
+		> InInt 0
