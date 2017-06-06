@@ -9,20 +9,20 @@ int Command::getParameter(){
 	return parameter;
 }
 
-void Command::setParameter(std::string inChar){
+void Command::setParameter(std::string input){
 	int sign;
 	int result = 0;
 
-	if (inChar[0]==' '){
+	if (input[0]==' '){
 		sign = 1;
-	}else if(inChar[0]=='\t'){
+	}else if(input[0]=='\t'){
 		sign = -1;
 	}
 
-	int len = inChar.length();
+	int len = input.length();
 
 	for (int i = 1; i <= len; i++){
-		if (inChar[i] == '\t'){
+		if (input[i] == '\t'){
 			result = result | (1 << (len - i - 1));
 		}
 	}

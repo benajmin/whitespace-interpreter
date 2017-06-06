@@ -16,7 +16,7 @@ class Command
 	public:
 		Command(CommandType type);
 		int getParameter();
-		void setParameter(std::string inChar);
+		void setParameter(std::string input);
 		CommandType getType();
 };
 
