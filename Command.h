@@ -2,8 +2,9 @@
 #define command
 
 #include <string>
+#include <algorithm>
 
-enum CommandType {Push, Duplicate, Swap, Pop, Add, Subtract, Multiply, Divide, Mod,
+enum CommandType {nullCmd, Push, Duplicate, Swap, Pop, Add, Subtract, Multiply, Divide, Mod,
 	Store, Retrieve, Mark, Call, Jump, JumpZero, JumpNegative, EndSub, End,
 	OutChar, OutInt, InChar, InInt};
 

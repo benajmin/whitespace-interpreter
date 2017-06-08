@@ -21,9 +21,13 @@ void Trie::insert(std::string key, CommandType type){
 
 CommandType Trie::lookup(std::ifstream& input){
 	Node* curr = head;
+	char c;
 
 	while (curr->type == nullCmd){
-		curr = curr->children[charToInt(input.get())];
+		c = input.get();
+		if (charToInt(c)!=-1){
+			curr = curr->children[charToInt(c)];
+		}
 	}
 
 	return curr->type;
