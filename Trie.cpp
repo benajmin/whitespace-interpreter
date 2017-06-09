@@ -7,6 +7,7 @@ Trie::Trie(){
 void Trie::insert(std::string key, CommandType type){
 	Node* curr = head;
 
+	//traverse down tree for each character, creating new nodes as necessary
 	for (int i = 0; i < key.length(); i++){
 		if (curr->children[charToInt(key[i])] != NULL){
 			curr = curr->children[charToInt(key[i])];
@@ -16,6 +17,8 @@ void Trie::insert(std::string key, CommandType type){
 		}
 	}
 
+	//check that we are not overwriting previous commands 
+	//or creating ambiguous command definitions
 	if (curr->type == nullCmd && curr->children[0] == NULL 
 		&& curr->children[1] == NULL && curr->children[2] == NULL){
 		curr->type = type;
@@ -28,13 +31,17 @@ CommandType Trie::lookup(std::ifstream& input){
 	Node* curr = head;
 	char c;
 
+	//traverse down tree untill find defined command
 	while (curr->type == nullCmd){
 		c = input.get();
+		//skip non whitespace characters
 		if (charToInt(c)!=-1){
+			//ensure tree is defined for next character
 			if (curr->children[charToInt(c)] != NULL){
 				curr = curr->children[charToInt(c)];
 			}else{
 				std::cerr << "Error: Unrecognized command" << std::endl;
+				return nullCmd;
 			}
 		}
 	}
@@ -51,6 +58,7 @@ int Trie::charToInt(char a){
 	}
 }
 
+//Returns new node with members predefined as null
 Node * Trie::newNode(){
 	Node* node = new Node;
 	for (int i = 0; i < 3; i++){
