@@ -16,7 +16,12 @@ void Trie::insert(std::string key, CommandType type){
 		}
 	}
 
-	curr->type = type;
+	if (curr->type == nullCmd && curr->children[0] == NULL 
+		&& curr->children[1] == NULL && curr->children[2] == NULL){
+		curr->type = type;
+	}else{
+		std::cerr << "Error: Ambiguous syntax definitions" << std::endl;
+	}
 }
 
 CommandType Trie::lookup(std::ifstream& input){
@@ -26,7 +31,11 @@ CommandType Trie::lookup(std::ifstream& input){
 	while (curr->type == nullCmd){
 		c = input.get();
 		if (charToInt(c)!=-1){
-			curr = curr->children[charToInt(c)];
+			if (curr->children[charToInt(c)] != NULL){
+				curr = curr->children[charToInt(c)];
+			}else{
+				std::cerr << "Error: Unrecognized command" << std::endl;
+			}
 		}
 	}
 
