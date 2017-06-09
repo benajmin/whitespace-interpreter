@@ -20,6 +20,7 @@ bool isInvalid(const char &c){
 	}
 }
 
+//converts whitespace label or number to an integer and saves to parameter
 void Command::setParameter(std::string input){
 	int sign;
 	int result = 0;
@@ -49,4 +50,33 @@ CommandType Command::getType(){
 	return type;
 }
 
+//returns map of command strings to enum values
+std::map<std::string, CommandType> Command::getCommandMap(){
+	std::map<std::string, CommandType> commandMap;
+
+	commandMap["Push"] = Push;
+	commandMap["Duplicate"] = Duplicate;
+	commandMap["Swap"] = Swap;
+	commandMap["Pop"] = Pop;
+	commandMap["Add"] = Add;
+	commandMap["Subtract"] = Subtract;
+	commandMap["Multiply"] = Multiply;
+	commandMap["Divide"] = Divide;
+	commandMap["Mod"] = Mod;
+	commandMap["Store"] = Store;
+	commandMap["Retrieve"] = Retrieve;
+	commandMap["Mark"] = Mark;
+	commandMap["Call"] = Call;
+	commandMap["Jump"] = Jump;
+	commandMap["JumpZero"] = JumpZero;
+	commandMap["JumpNegative"] = JumpNegative;
+	commandMap["EndSub"] = EndSub;
+	commandMap["End"] = End;
+	commandMap["OutChar"] = OutChar;
+	commandMap["OutInt"] = OutInt;
+	commandMap["InChar"] = InChar;
+	commandMap["InInt"] = InInt;
+
+	return commandMap;
+}
 

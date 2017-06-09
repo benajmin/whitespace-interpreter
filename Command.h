@@ -3,6 +3,7 @@
 
 #include <string>
 #include <algorithm>
+#include <map>
 
 enum CommandType {nullCmd, Push, Duplicate, Swap, Pop, Add, Subtract, Multiply, Divide, Mod,
 	Store, Retrieve, Mark, Call, Jump, JumpZero, JumpNegative, EndSub, End,
@@ -19,6 +20,7 @@ class Command
 		int getParameter();
 		void setParameter(std::string input);
 		CommandType getType();
+		static std::map<std::string, CommandType> getCommandMap();
 };
 
 #endif
