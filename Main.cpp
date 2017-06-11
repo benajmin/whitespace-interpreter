@@ -6,13 +6,11 @@
 #include "Command.h"
 #include "Trie.h"
 
-std::map<std::string, CommandType> getCommandMap();
 void loadSyntax(Trie &trie, bool hasParamater[]);
-std::vector<Command> loadProgram(std::string inputFile);
+std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParamater[]);
 
-using namespace std;
 int main(){
-	Trie t;
+	/*Trie t;
 
 	ifstream fin ("test");
 	t.insert("   ", Pop);
@@ -20,12 +18,12 @@ int main(){
 	t.insert("\t\n ", Store);
 
 	cout << t.lookup(fin);
-	cout << t.lookup(fin);
+	cout << t.lookup(fin);*/
 	return 0;
 }
 
 void loadSyntax(Trie &syntaxTrie, bool hasParamater[]){
-	ifstream fin ("Syntax.dat");
+	std::ifstream fin ("Syntax.dat");
 	std::map<std::string, CommandType> commandMap = Command::getCommandMap();
 	std::string syntax;
 	std::string commandType;
@@ -42,4 +40,27 @@ void loadSyntax(Trie &syntaxTrie, bool hasParamater[]){
 			std::cerr << "Error: Unrecognized command in syntax definitions" << std::endl;
 		}
 	}
+}
+
+std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParameter[]){
+	std::ifstream fin (inputFile);
+	std::vector<Command> program;
+	Command * cmd;
+	std::string parameter;
+
+	do{
+		cmd = new Command(syntaxTrie.lookup(fin));
+
+		if (cmd->getType() != nullCmd && hasParameter[cmd->getType()]){
+			std::getline(fin, parameter);
+			cmd->setParameter(parameter);
+		}
+
+		program.push_back(*cmd);
+	}while (cmd->getType() != nullCmd);
+
+	//remove null command
+	program.pop_back();
+
+	return program;
 }
