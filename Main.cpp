@@ -7,7 +7,8 @@
 #include "Trie.h"
 
 void loadSyntax(Trie &trie, bool hasParamater[]);
-std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParamater[]);
+std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParamater[], std::map<int, int> labelPositions);
+void execute(std::vector<Command> program);
 
 int main(){
 	/*Trie t;
@@ -42,7 +43,7 @@ void loadSyntax(Trie &syntaxTrie, bool hasParamater[]){
 	}
 }
 
-std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParameter[]){
+std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParameter[], std::map<int, int> labelPositions){
 	std::ifstream fin (inputFile);
 	std::vector<Command> program;
 	Command * cmd;
@@ -51,9 +52,19 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool ha
 	do{
 		cmd = new Command(syntaxTrie.lookup(fin));
 
+		//Set Parameter
 		if (cmd->getType() != nullCmd && hasParameter[cmd->getType()]){
 			std::getline(fin, parameter);
 			cmd->setParameter(parameter);
+		}
+
+		//Record label positions
+		if (cmd->getType() == Mark){
+			if (labelPositions.find(cmd->getParameter()) != labelPositions.end()){
+				labelPositions[cmd->getParameter()] = program.size();
+			}else{
+				std::cerr << "Error: Non-unique labels" << std::endl;
+			}
 		}
 
 		program.push_back(*cmd);
