@@ -34,6 +34,11 @@ CommandType Trie::lookup(std::ifstream& input){
 	//traverse down tree untill find defined command
 	while (curr->type == nullCmd){
 		c = input.get();
+
+		if (c == EOF){
+			return nullCmd;
+		}
+
 		//skip non whitespace characters
 		if (charToInt(c)!=-1){
 			//ensure tree is defined for next character
