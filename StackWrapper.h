@@ -12,6 +12,11 @@ class StackWrapper
 		int pop();
 		void duplicate();
 		void swap();
+		void add(); 
+		void subtract(); 
+		void multiply();
+		void divide();
+		void mod();
 };
 
 #endif

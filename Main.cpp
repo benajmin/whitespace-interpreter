@@ -95,14 +95,19 @@ void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int
 				stack.pop();
 				break;
 			case Add:
+				stack.add();
 				break;
 			case Subtract:
+				stack.subtract();
 				break;
 			case Multiply:
+				stack.multiply();
 				break;
 			case Divide:
+				stack.divide();
 				break; 
 			case Mod:
+				stack.mod();
 				break;
 			case Store:
 				break;
