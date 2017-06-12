@@ -80,7 +80,7 @@ void execute(std::vector<Command> program, std::map<int, int> labelPositions){
 	int i = 0;
 
 	while (true){
-		switch(program[i]){
+		switch(program[i].getType()){
 			case Push:
 				break;
 			case Duplicate:
