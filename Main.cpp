@@ -8,7 +8,7 @@
 
 void loadSyntax(Trie &trie, bool hasParamater[]);
 std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParamater[], std::map<int, int> labelPositions);
-void execute(std::vector<Command> program);
+void execute(std::vector<Command> program, std::map<int, int> labelPositions);
 
 int main(){
 	/*Trie t;
@@ -74,4 +74,61 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool ha
 	program.pop_back();
 
 	return program;
+}
+
+void execute(std::vector<Command> program, std::map<int, int> labelPositions){
+	int i = 0;
+
+	while (true){
+		switch(program[i]){
+			case Push:
+				break;
+			case Duplicate:
+				break;
+			case Swap:
+				break;
+			case Pop:
+				break;
+			case Add:
+				break;
+			case Subtract:
+				break;
+			case Multiply:
+				break;
+			case Divide:
+				break; 
+			case Mod:
+				break;
+			case Store:
+				break;
+			case Retrieve:
+				break;
+			case Mark:
+				break;
+			case Call:
+				break;
+			case Jump:
+				break; 
+			case JumpZero:
+				break; 
+			case JumpNegative:
+				break; 
+			case EndSub:
+				break;
+			case End:
+				break;
+			case OutChar:
+				break;
+			case OutInt:
+				break;
+			case InChar:
+				break; 
+			case InInt:
+				break;
+			default:
+				std::cerr << "Error: Unrecognized command loaded" << std::endl;
+				return;
+		}
+		i++;
+	}
 }
