@@ -5,10 +5,11 @@
 #include <vector>
 #include "Command.h"
 #include "Trie.h"
+#include "StackWrapper.h"
 
 void loadSyntax(Trie &trie, bool hasParamater[]);
 std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParamater[], std::map<int, int> labelPositions);
-void execute(std::vector<Command> program, std::map<int, int> labelPositions);
+void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int> labelPositions);
 
 int main(){
 	/*Trie t;
@@ -76,18 +77,22 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool ha
 	return program;
 }
 
-void execute(std::vector<Command> program, std::map<int, int> labelPositions){
+void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int> labelPositions){
 	int i = 0;
 
 	while (true){
 		switch(program[i].getType()){
 			case Push:
+				stack.push(program[i].getParameter());
 				break;
 			case Duplicate:
+				stack.duplicate();
 				break;
 			case Swap:
+				stack.swap();
 				break;
 			case Pop:
+				stack.pop();
 				break;
 			case Add:
 				break;
