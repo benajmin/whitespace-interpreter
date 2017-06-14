@@ -6,10 +6,11 @@
 #include "Command.h"
 #include "Trie.h"
 #include "StackWrapper.h"
+#include "Heap.h"
 
 void loadSyntax(Trie &trie, bool hasParamater[]);
 std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParamater[], std::map<int, int> labelPositions);
-void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int> labelPositions);
+void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int> labelPositions, Heap memory);
 
 int main(){
 	/*Trie t;
@@ -77,7 +78,7 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool ha
 	return program;
 }
 
-void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int> labelPositions){
+void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int> labelPositions, Heap memory){
 	int i = 0;
 
 	while (true){
@@ -105,24 +106,26 @@ void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int
 				break;
 			case Divide:
 				stack.divide();
-				break; 
+				break;
 			case Mod:
 				stack.mod();
 				break;
 			case Store:
+				memory.store(stack.pop(), stack.pop());
 				break;
 			case Retrieve:
+				stack.push(memory.retrieve(stack.pop()));
 				break;
 			case Mark:
 				break;
 			case Call:
 				break;
 			case Jump:
-				break; 
+				break;
 			case JumpZero:
-				break; 
+				break;
 			case JumpNegative:
-				break; 
+				break;
 			case EndSub:
 				break;
 			case End:
@@ -132,7 +135,7 @@ void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int
 			case OutInt:
 				break;
 			case InChar:
-				break; 
+				break;
 			case InInt:
 				break;
 			default:
