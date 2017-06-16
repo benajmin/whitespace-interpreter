@@ -131,12 +131,14 @@ void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int
 			case End:
 				break;
 			case OutChar:
+				std::cout << (char) stack.pop();
 				break;
 			case OutInt:
+				std::cout << (int) stack.pop();
 				break;
 			case InChar:
-				break;
 			case InInt:
+				stack.push(std::cin.get());
 				break;
 			default:
 				std::cerr << "Error: Unrecognized command loaded" << std::endl;
