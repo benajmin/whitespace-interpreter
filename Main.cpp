@@ -9,8 +9,10 @@
 #include "Heap.h"
 
 void loadSyntax(Trie &trie, bool hasParamater[]);
-std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParamater[], std::map<int, int> labelPositions);
-void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int> labelPositions, Heap memory);
+std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
+	bool hasParamater[], std::map<int, int> labelPositions);
+void execute(std::vector<Command> program, StackWrapper stack,
+	std::map<int, int> labelPositions, Heap memory);
 
 int main(){
 	/*Trie t;
@@ -45,7 +47,9 @@ void loadSyntax(Trie &syntaxTrie, bool hasParamater[]){
 	}
 }
 
-std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool hasParameter[], std::map<int, int> labelPositions){
+std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
+	bool hasParameter[], std::map<int, int> labelPositions){
+
 	std::ifstream fin (inputFile);
 	std::vector<Command> program;
 	Command * cmd;
@@ -78,7 +82,9 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie, bool ha
 	return program;
 }
 
-void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int> labelPositions, Heap memory){
+void execute(std::vector<Command> program, StackWrapper stack,
+	std::map<int, int> labelPositions, Heap memory){
+
 	int i = 0;
 
 	while (true){
@@ -121,15 +127,18 @@ void execute(std::vector<Command> program, StackWrapper stack, std::map<int, int
 			case Call:
 				break;
 			case Jump:
+				i = labelPositions[program[i].getParameter()];
 				break;
 			case JumpZero:
+				(stack.pop() == 0)? i = labelPositions[program[i].getParameter()];
 				break;
 			case JumpNegative:
+				(stack.pop() < 0)? i = labelPositions[program[i].getParameter()];
 				break;
 			case EndSub:
 				break;
 			case End:
-				break;
+				return;
 			case OutChar:
 				std::cout << (char) stack.pop();
 				break;
