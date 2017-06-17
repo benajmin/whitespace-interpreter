@@ -130,10 +130,10 @@ void execute(std::vector<Command> program, StackWrapper stack,
 				i = labelPositions[program[i].getParameter()];
 				break;
 			case JumpZero:
-				(stack.pop() == 0)? i = labelPositions[program[i].getParameter()];
+				if (stack.pop() == 0) i = labelPositions[program[i].getParameter()];
 				break;
 			case JumpNegative:
-				(stack.pop() < 0)? i = labelPositions[program[i].getParameter()];
+				if(stack.pop() < 0) i = labelPositions[program[i].getParameter()];
 				break;
 			case EndSub:
 				break;
