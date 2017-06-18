@@ -12,7 +12,7 @@ void loadSyntax(Trie &trie, bool hasParamater[]);
 std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
 	bool hasParamater[], std::map<int, int> labelPositions);
 void execute(std::vector<Command> program, StackWrapper stack,
-	std::map<int, int> labelPositions, Heap memory);
+	std::map<int, int> labelPositions, Heap memory, int pos);
 
 int main(){
 	/*Trie t;
@@ -83,9 +83,9 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
 }
 
 void execute(std::vector<Command> program, StackWrapper stack,
-	std::map<int, int> labelPositions, Heap memory){
+	std::map<int, int> labelPositions, Heap memory, int pos){
 
-	int i = 0;
+	int i = (pos == -1)? 0: pos;
 
 	while (true){
 		switch(program[i].getType()){
@@ -125,6 +125,8 @@ void execute(std::vector<Command> program, StackWrapper stack,
 			case Mark:
 				break;
 			case Call:
+				execute(program, stack, labelPositions, memory,
+					labelPositions[program[i].getParameter()]);
 				break;
 			case Jump:
 				i = labelPositions[program[i].getParameter()];
@@ -136,6 +138,7 @@ void execute(std::vector<Command> program, StackWrapper stack,
 				if(stack.pop() < 0) i = labelPositions[program[i].getParameter()];
 				break;
 			case EndSub:
+				if (pos != -1) return;
 				break;
 			case End:
 				return;
