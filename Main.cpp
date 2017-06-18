@@ -11,7 +11,7 @@
 void loadSyntax(Trie &trie, bool hasParamater[]);
 std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
 	bool hasParamater[], std::map<int, int> labelPositions);
-void execute(std::vector<Command> program, StackWrapper stack,
+int execute(std::vector<Command> program, StackWrapper stack,
 	std::map<int, int> labelPositions, Heap memory, int pos);
 
 int main(){
@@ -82,7 +82,7 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
 	return program;
 }
 
-void execute(std::vector<Command> program, StackWrapper stack,
+int execute(std::vector<Command> program, StackWrapper stack,
 	std::map<int, int> labelPositions, Heap memory, int pos){
 
 	int i = (pos == -1)? 0: pos;
@@ -125,8 +125,11 @@ void execute(std::vector<Command> program, StackWrapper stack,
 			case Mark:
 				break;
 			case Call:
-				execute(program, stack, labelPositions, memory,
-					labelPositions[program[i].getParameter()]);
+				if (execute(program, stack, labelPositions, memory,
+					labelPositions[program[i].getParameter()]) == 1){
+
+					return 1;
+				}
 				break;
 			case Jump:
 				i = labelPositions[program[i].getParameter()];
@@ -138,10 +141,10 @@ void execute(std::vector<Command> program, StackWrapper stack,
 				if(stack.pop() < 0) i = labelPositions[program[i].getParameter()];
 				break;
 			case EndSub:
-				if (pos != -1) return;
+				if (pos != -1) return 0;
 				break;
 			case End:
-				return;
+				return 1;
 			case OutChar:
 				std::cout << (char) stack.pop();
 				break;
@@ -154,7 +157,7 @@ void execute(std::vector<Command> program, StackWrapper stack,
 				break;
 			default:
 				std::cerr << "Error: Unrecognized command loaded" << std::endl;
-				return;
+				return -1;
 		}
 		i++;
 	}
