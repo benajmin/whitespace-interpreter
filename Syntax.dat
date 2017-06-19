@@ -13,23 +13,22 @@
 <	 	 > Divide 0
 <	 		> Mod 0
 <		 > Store 0
-<		 > Retrieve 0
+<			> Retrieve 0
 <
   > Mark 1
 <
  	> Call 1
 <
  
- > Jump 1
+> Jump 1
 <
 	 > JumpZero 1
 <
 		> JumpNegative 1
 <
 	
-	> End Sub 0
+> EndSub 0
 <
-
 
 > End 0
 <	
