@@ -17,13 +17,14 @@ void Trie::insert(std::string key, CommandType type){
 		}
 	}
 
-	//check that we are not overwriting previous commands 
+	//check that we are not overwriting previous commands
 	//or creating ambiguous command definitions
-	if (curr->type == nullCmd && curr->children[0] == NULL 
+	if (curr->type == nullCmd && curr->children[0] == NULL
 		&& curr->children[1] == NULL && curr->children[2] == NULL){
 		curr->type = type;
 	}else{
 		std::cerr << "Error: Ambiguous syntax definitions" << std::endl;
+		return;
 	}
 }
 
@@ -33,11 +34,11 @@ CommandType Trie::lookup(std::ifstream& input){
 
 	//traverse down tree untill find defined command
 	while (curr->type == nullCmd){
-		c = input.get();
-
-		if (c == EOF){
+		if (input.eof()){
 			return nullCmd;
 		}
+
+		c = input.get();
 
 		//skip non whitespace characters
 		if (charToInt(c)!=-1){
