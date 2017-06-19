@@ -15,15 +15,19 @@ int execute(std::vector<Command> program, StackWrapper stack,
 	std::map<int, int> labelPositions, Heap memory, int pos);
 
 int main(){
-	/*Trie t;
+	Trie syntaxTrie;
+	bool hasParamater[30];
+	std::map<int, int> labelPositions;
+	StackWrapper stack;
+	Heap memory;
 
-	ifstream fin ("test");
-	t.insert("   ", Pop);
-	t.insert("\t\t\t", Push);
-	t.insert("\t\n ", Store);
+	loadSyntax(syntaxTrie, hasParamater);
 
-	cout << t.lookup(fin);
-	cout << t.lookup(fin);*/
+	std::vector<Command> program = loadProgram("helloWorld.whitespace", syntaxTrie,
+		hasParamater, labelPositions);
+
+	execute(program, stack, labelPositions, memory, -1);
+
 	return 0;
 }
 
@@ -33,17 +37,29 @@ void loadSyntax(Trie &syntaxTrie, bool hasParamater[]){
 	std::string syntax;
 	std::string commandType;
 
-	while (fin.get()!=EOF){
-		std::getline(fin, syntax, '>');
+	if (!fin.good()){
+		std::cerr << "Error: Missing syntax file" << std::endl;
+		return;
+	}
+
+	//ignore leadin <
+	fin.ignore();
+
+	//loop until eof
+	while (std::getline(fin, syntax, '>')){
 		fin >> commandType;
 
 		//ensure command hasn't been loaded yet
 		if (commandMap.find(commandType) != commandMap.end()){
+			//TODO std::cout << syntax << ':' << commandType << '|';
 			syntaxTrie.insert(syntax, commandMap[commandType]);
 			fin >> hasParamater[commandMap[commandType]];
 		}else{
 			std::cerr << "Error: Unrecognized command in syntax definitions" << std::endl;
 		}
+
+		//ignore < and newline
+		fin.ignore(2);
 	}
 }
 
@@ -55,13 +71,20 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
 	Command * cmd;
 	std::string parameter;
 
+	if (!fin.good()){
+		std::cerr << "Error: Missing program file" << std::endl;
+		return program;
+	}
+
 	do{
 		cmd = new Command(syntaxTrie.lookup(fin));
+		//TODO std::cout << cmd->getType() << ' ';
 
 		//Set Parameter
 		if (cmd->getType() != nullCmd && hasParameter[cmd->getType()]){
 			std::getline(fin, parameter);
 			cmd->setParameter(parameter);
+		//TODO	std::cout << cmd->getParameter() << std::endl;
 		}
 
 		//Record label positions
@@ -87,7 +110,7 @@ int execute(std::vector<Command> program, StackWrapper stack,
 
 	int i = (pos == -1)? 0: pos;
 
-	while (true){
+	while (i < program.size()){
 		switch(program[i].getType()){
 			case Push:
 				stack.push(program[i].getParameter());
@@ -161,4 +184,7 @@ int execute(std::vector<Command> program, StackWrapper stack,
 		}
 		i++;
 	}
+
+	std::cerr << "Error: Control reached end of program" << std::endl;
+	return -1;
 }
