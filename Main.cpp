@@ -10,7 +10,7 @@
 
 void loadSyntax(Trie &trie, bool hasParamater[]);
 std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
-	bool hasParamater[], std::map<int, int> labelPositions);
+	bool hasParamater[], std::map<int, int> &labelPositions);
 int execute(std::vector<Command> program, StackWrapper stack,
 	std::map<int, int> labelPositions, Heap memory, int pos);
 
@@ -23,7 +23,7 @@ int main(){
 
 	loadSyntax(syntaxTrie, hasParamater);
 
-	std::vector<Command> program = loadProgram("helloWorld.whitespace", syntaxTrie,
+	std::vector<Command> program = loadProgram("count.whitespace", syntaxTrie,
 		hasParamater, labelPositions);
 
 	execute(program, stack, labelPositions, memory, -1);
@@ -64,7 +64,7 @@ void loadSyntax(Trie &syntaxTrie, bool hasParamater[]){
 }
 
 std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
-	bool hasParameter[], std::map<int, int> labelPositions){
+	bool hasParameter[], std::map<int, int> &labelPositions){
 
 	std::ifstream fin (inputFile);
 	std::vector<Command> program;
@@ -78,18 +78,16 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
 
 	do{
 		cmd = new Command(syntaxTrie.lookup(fin));
-		//TODO std::cout << cmd->getType() << ' ';
 
 		//Set Parameter
 		if (cmd->getType() != nullCmd && hasParameter[cmd->getType()]){
 			std::getline(fin, parameter);
 			cmd->setParameter(parameter);
-		//TODO	std::cout << cmd->getParameter() << std::endl;
 		}
 
 		//Record label positions
 		if (cmd->getType() == Mark){
-			if (labelPositions.find(cmd->getParameter()) != labelPositions.end()){
+			if (labelPositions.find(cmd->getParameter()) == labelPositions.end()){
 				labelPositions[cmd->getParameter()] = program.size();
 			}else{
 				std::cerr << "Error: Non-unique labels" << std::endl;
