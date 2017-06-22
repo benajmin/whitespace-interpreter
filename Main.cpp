@@ -14,17 +14,22 @@ std::vector<Command> loadProgram(std::string inputFile, Trie syntaxTrie,
 int execute(std::vector<Command> program, StackWrapper stack,
 	std::map<int, int> labelPositions, Heap memory, int pos);
 
-int main(){
+int main(int argc, char *argv[]){
 	Trie syntaxTrie;
 	bool hasParamater[30];
 	std::map<int, int> labelPositions;
+	std::vector<Command> program;
 	StackWrapper stack;
 	Heap memory;
 
+	if (argc != 2){
+		std::cerr << "Error: Missing or unrecognized arguments" << std::endl;
+		return 1;
+	}
+
 	loadSyntax(syntaxTrie, hasParamater);
 
-	std::vector<Command> program = loadProgram("count.whitespace", syntaxTrie,
-		hasParamater, labelPositions);
+	program = loadProgram(argv[1], syntaxTrie, hasParamater, labelPositions);
 
 	execute(program, stack, labelPositions, memory, -1);
 
