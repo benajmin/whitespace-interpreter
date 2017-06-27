@@ -56,7 +56,6 @@ void loadSyntax(Trie &syntaxTrie, bool hasParamater[]){
 
 		//ensure command hasn't been loaded yet
 		if (commandMap.find(commandType) != commandMap.end()){
-			//TODO std::cout << syntax << ':' << commandType << '|';
 			syntaxTrie.insert(syntax, commandMap[commandType]);
 			fin >> hasParamater[commandMap[commandType]];
 		}else{
