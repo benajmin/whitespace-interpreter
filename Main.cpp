@@ -178,7 +178,7 @@ int execute(std::vector<Command> program, StackWrapper stack,
 				break;
 			case InChar:
 			case InInt:
-				stack.push(std::cin.get());
+				memory.store(std::cin.get(), stack.pop());
 				break;
 			default:
 				std::cerr << "Error: Unrecognized command loaded" << std::endl;
