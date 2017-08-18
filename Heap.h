@@ -2,6 +2,8 @@
 #define heap
 
 #include <map>
+#include <fstream>
+#include <iostream>
 
 class Heap
 {
@@ -10,6 +12,8 @@ class Heap
 	public:
 		void store(int value, int address);
 		int retrieve(int address);
+		void load();
+		void save();
 };
 
 #endif
