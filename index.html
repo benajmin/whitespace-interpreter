@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Benjamin Wilkins</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="../stylesheet.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="container-fluid" id = "body">
+			<nav class="navbar navbar-inverse" >
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="navbar">
+						<ul class="nav navbar-nav">
+							<li><a href="../index.html">Benjamin Wilkins</a></li>
+							<li class="active"><a href="#">Projects</a></li>
+							<li><a href="../WilkinsResume.pdf">Resume</a></li>
+							<li><a href="../contact/index.html">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div class= "content well">
+				<h1><a href="https://github.com/benajmin/robopopo">Plane Pointer</a></h1>
+				<h6>December 2017</h6>
+				<div class="pull-right"><img class="img-thumbnail img-responsive" src="" alt="TODO add image" height="384" width="490"></div> 
+				
+				<p> Earlier this year I got the idea stuck in my head that I should make a robot that points at the nearest plane. I'm not sure why, but I just knew I had to do it. </p>
+				
+				<p> Arduino was the obvious platform to make this come to life, and it seemed much simpler to connect the Arduino to a computer rather than directly interface the Arduino with the internet to acces plane data. Having never interfaced an arduino with a computer before, I took inspiration from <a href="https://www.youtube.com/watch?v=Q8zC3-ZQFJI">Michael Reeves</a> and decided to use Visual C#. However after many days of struggling to set up Visual Studio and the required libraries on a mac, I soon gave up and decided to instead use Python. </p>
+				
+				<p> Once I made the switch to Python everything began to run smoothly. My first challenge was determining the computer's location, but with the use of Google's geolocation API that turned out to be relatively simple. I managed to poll wifi data quite easily, and after learning a bit of RegEx, I was able to parse it too. </p>
+				
+				<p> The hardware side of things was quite simple. So after interfacing with a few more APIs everything was up and running. The only other difficulty was string parsing on the Arduino, which involved way more struggling with pointers than I'm willing to submit. </p>
+				
+				<p> Now that I have the guts of it working, the only thing left to do is pretty it up. I plan on laser cutting an enclosure for the machine, and I will be sure to post an update along with photos of the finished project once I've done so. </p>
+
+			</div>
+		
+			<footer class="footer">
+				<nav class="navbar navbar-inverse">
+					<ul class="nav navbar-nav">
+						<li><a href="https://github.com/benajmin"><i class="fa fa-github"></i></a></li>
+						<li><a href="https://www.linkedin.com/in/benjaminwilkins99/"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</nav>
+			</footer>
+		</div>
+		
+	</body>
+</html> 
